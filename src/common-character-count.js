@@ -19,19 +19,19 @@ const { NotImplementedError } = require('../extensions/index.js');
     }, {});
     return obj;
   }
-  const objStr1 = countNumberOfLetters(s1);
-  const objStr2 = countNumberOfLetters(s2);
+  const obj1 = countNumberOfLetters(s1);
+  const obj2 = countNumberOfLetters(s2);
   let count = 0;
   if (s1.length < s2.length) {
-    Object.keys(objStr1).forEach((elem) => {
-      if (elem in objStr2) {
-        count += Math.min(objStr1[elem], objStr2[elem]);
+    Object.keys(obj1).forEach((elem) => {
+      if (elem in obj2) {
+        count += Math.min(obj1[elem], obj2[elem]);
       }
     });
   } else {
-    Object.keys(objStr2).forEach((elem) => {
-      if (elem in objStr1) {
-        count += Math.min(objStr1[elem], objStr2[elem]);
+    Object.keys(obj2).forEach((elem) => {
+      if (elem in obj1) {
+        count += Math.min(obj1[elem], obj2[elem]);
       }
     });
   }
