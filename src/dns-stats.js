@@ -23,22 +23,38 @@ const { NotImplementedError } = require('../extensions/index.js');
  *
  */
 function getDNSStats( domains ) {
-  let obj = {};
-  let s = '';
-  for (let i = 0; i < domains.length; i++){
-      let newArr = domains[i].split('.').reverse();
-      // let k = Object.keys(obj);
-    for (let j = 0; j < newArr.length; j++){
-      if (obj.newArr[j] == true){
-        obj[newArr[j]]++;
-      }else {
-        let s = '.' + newArr[j];
-        obj[s] = 1
-      }
-    
+let obj = {};
+for (let i = 0; i < domains.length; i++) {
+  domains[i] = "." + domains[i];
+  let dotIndexes = []
+  for (let j = 0; j < domains[i].length; j++) {
+    if (domains[i][j] == ".") {
+      dotIndexes.push(j);
+    }
+  }
+
+  for (let k = 0; k < dotIndexes.length; k++) {
+    let dom = domains[i].split("").slice(dotIndexes[k]).join("");
+    console.log(dom)
+    dom="."+ dom.split(".").reverse().join(".");
+    dom=dom.slice(0, -1)
+    if (dom in obj) {
+      obj[dom] += 1;
+    } else {
+      obj[dom] = 1;
+    }
   }
 }
+let arr = Object.entries(obj).sort((a, b) => a[0].length - b[0].length); 
+let newObj = {};
+for (let l = 0; l < arr.length; l++) {
+    newObj[arr[l].slice(0, arr[l].length - 3)] = +(arr[l]
+    .slice(arr[l].length - 3)
+    .join());
 }
+return newObj;
+ }
+
 
 module.exports = {
   getDNSStats
